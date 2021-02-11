@@ -2,7 +2,7 @@
 
 ## Python Development
 
-This is a Tic-Tac-Toe game developed by **Team 1** during the Python Development course within Scoala Informala de IT.
+This is a Tic-Tac-Toe game developed by **Team 2** during the Python Development course within Scoala Informala de IT.
 
 ### Requirements:
 1. Rewrite `print` and `logging` so you don't have to write the messages you have to log more then once. Also rename to output logs to `games_history` instead of just `games` [the name is really confusing, sorry about that :)]

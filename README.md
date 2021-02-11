@@ -1,4 +1,4 @@
-# Tic-Tac-Toe [Team 1]
+# Tic-Tac-Toe [Team 2]
 
 ## Python Development
 

@@ -2,8 +2,12 @@ import logging
 from .board import board_matrix as initial_board, get_options, show, set_choice
 from .status import check_status
 from .player import get_current_player
+from game.access import player_auth
+
 
 logger = logging.getLogger(__name__)
+
+#  returns tuple with player_1 and player_2 first_name
 
 
 def start():
@@ -18,13 +22,14 @@ def start():
     board_matrix = initial_board.copy()
     winner = None
     player_name = None
+    players = player_auth()
 
     print('Welcome and good luck!')
     logger.info('Welcome and good luck!')
 
     while not is_over:
         if is_correct_choice:
-            player_name, sign = get_current_player(step)
+            player_name, sign = get_current_player(step, players[0], players[1])
             print('%s is your turn.' % player_name)
             logger.info('%s is your turn.' % player_name)
 

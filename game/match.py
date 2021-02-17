@@ -75,7 +75,7 @@ def check_match_status(player, match_dict, no_of_games_in_match, match_is_over, 
             match_is_won = True
             # print(players[0])
             match_winner = players[0]
-            if len(players) > 1 and match_dict[match_winner] < match_dict[players[1]]:  # 2nd player might have won
+            if len(players) > 1 and match_dict[match_winner] < match_dict[players[1]]:  # 2nd player might have
                 # print(players[1])
                 match_winner = players[1]
         # A draw match can finish the game we should return also the winner - it is not necessarily current player

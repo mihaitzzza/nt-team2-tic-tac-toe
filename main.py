@@ -28,9 +28,9 @@ if __name__ == '__main__':
             'total': 0, }
         match_stats = match_dict
         while not match_is_over:
-            match_winner = game.start()
-            match_is_over, match_is_won, match_stats = \
-                match.check_match_status(match_winner, match_dict, no_of_games_in_match, match_is_over, match_is_won)
+            game_winner = game.start()
+            match_is_over, match_is_won, match_stats, match_winner = \
+                match.check_match_status(game_winner, match_dict, no_of_games_in_match, match_is_over, match_is_won)
             print(f'Current match stats: {match_stats}!!!')
         if match_is_won:
             print(f'Player {match_winner} has won the game with {match_stats}!')

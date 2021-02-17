@@ -26,6 +26,7 @@ def start():
     print(board_matrix)
     winner = None
     player_name = None
+    played_sequence = []
 
     print('Welcome and good luck!')
     logger.info('Welcome and good luck!')
@@ -59,6 +60,8 @@ def start():
             is_correct_choice = True
             logger.info('Player choice: %s' % choice)
 
+        played_sequence.append(choice)
+
         board_matrix = set_choice(board_matrix, choice, sign)
 
         # Check if the game is won or not.
@@ -81,4 +84,5 @@ def start():
         logger.info('Game ended as a draw.')
         winner = 'draw'
     show(board_matrix)
+    print(f'Played sequence was {played_sequence}')
     return winner

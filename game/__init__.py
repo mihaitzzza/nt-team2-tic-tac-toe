@@ -1,11 +1,10 @@
 import logging
-from .board import initial_board as initial_board, get_options, show, set_choice
+from .board import board_matrix as initial_board, get_options, show, set_choice
 from .status import check_status
 from .player import get_current_player
-from .match import set_match_status
+from .match import check_match_status
 
 logger = logging.getLogger(__name__)
-
 
 
 def start():
@@ -19,11 +18,11 @@ def start():
     sign = 'x'
 
     board_matrix = [
-    [None, None, None],
-    [None, None, None],
-    [None, None, None],
-]
-
+        [None, None, None],
+        [None, None, None],
+        [None, None, None],
+    ]
+    # board_matrix=initial_board.copy()
     print(board_matrix)
     winner = None
     player_name = None
@@ -76,9 +75,10 @@ def start():
     if winner:
         print(f'{winner} has won the game.')
         logger.info(f'{winner} has won the game.')
-        match.set_match_status(winner)
 
     else:
         print('Game ended as a draw.')
         logger.info('Game ended as a draw.')
-        match.set_match_status('d')
+        winner = 'draw'
+    show(board_matrix)
+    return winner

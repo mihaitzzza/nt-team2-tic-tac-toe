@@ -33,50 +33,32 @@ def input_number_of_matches():
     return no_of_games
 
 
-no_of_matches = input_number_of_matches()
-
-
-def get_number_of_matches():
-    global no_of_matches
-    print(no_of_matches)
-    return no_of_matches
-
-
-match_is_over = False
-match_is_won = False
-match_winner = ''
-match_dict = {
-    'd': 0,
-    't': 0, }
-
-
-def set_match_status(player):
+def check_match_status(player, match_dict, no_of_games_in_match, match_is_over, match_is_won):
     """
     Update match stats after a game
-    :param : Player who won, 'd' for draw
+    :param : player - who won current game,
+            match_dict - current game stats genre {'draw': 0, 'total': 2, 'Player 1': 2},
+            no_of_games_in_match - chosen number of games,
+            match_is_over - is current match over according to specs,
+            match_is_won - - is current with winner according to specs
     :return: match_is_over, match_is_won, match_winner, match_dict
     match_dict is a dict containing current stats
     how many wins for each player, how many draws, how many total games
     """
-    global match_is_over, match_is_won, match_winner, match_dict
+    match_winner = ''
     if match_dict.get(player):
         match_dict[player] = match_dict[player] + 1
     else:
         match_dict[player] = 1
-    match_dict['t'] = match_dict['t'] + 1
-    if (match_dict[player] * 2 > no_of_matches) and player != 'd':
+    match_dict['total'] = match_dict['total'] + 1
+    if (match_dict[player] * 2 > no_of_games_in_match) and player != 'draw':
         match_is_won = True
         match_winner = player
-    if match_dict['t'] == no_of_matches or match_is_won:
+    if match_dict['total'] == no_of_games_in_match or match_is_won:
         match_is_over = True
     if match_is_over and match_winner == '':
-        match_winner = 'd'
+        match_winner = 'draw'
     logger.info(f'Set_match_status to  match_is_over={match_is_over} match_is_won={match_is_won} '
                 f'match_winner={match_winner} match_dict={match_dict}')
     # print(match_is_over, match_is_won, match_winner, match_dict)
-
-
-def get_match_status():
-    global match_is_over, match_is_won, match_winner, match_dict
-    # print(match_is_over, match_is_won, match_winner)
-    return match_is_over, match_is_won, match_winner, match_dict
+    return match_is_over, match_is_won, match_dict

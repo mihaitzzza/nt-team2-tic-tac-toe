@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import os.path
 import hashlib
 import getpass
@@ -12,6 +13,16 @@ def hash_password(p):
     pas = str(p).encode('utf-8')
     m.update(pas)
     return m.hexdigest()
+
+
+def str_chk(user):
+    b = re.match('^(?=.*[a-z])(?=.*[0-9])[a-z,0-9]{6,}$', user)
+    while b is None:
+        c = None
+        break
+    else:
+        c = b.group(0)
+    return c
 
 
 def register():
@@ -33,13 +44,14 @@ def register():
     user_name = input('User_name: ')
     user_name = user_name.strip()
     # check user_name format
-    while not (len(user_name) >= 6 and user_name.isalnum() and not (user_name.isalpha() or user_name.isnumeric())):
+    while str_chk(user_name) is None:
         print('Wrong user_name ')
         user_name = input('User_name: ')
         user_name = user_name.strip()
 
     else:
         print('user_name is good')
+        user_name = str_chk(user_name)
     # check user_name exist
     while user_name in os.listdir(os.path.join('game', 'data')):  # check if already exists
         print('Username already used, try another')
@@ -52,14 +64,14 @@ def register():
     password = password.strip()
 
     # check password format
-    while not (len(password) >= 6 and password.isalnum() and not (password.isalpha() or password.isnumeric())):
+    while str_chk(password) is None:
         print('Insecure password ')
         password = getpass.getpass('Password:  ')
         password = password.strip()
 
     else:
         print('pass is good')
-
+        password = str_chk(password)
     password_confirmation = getpass.getpass('Confirm_password: ')
     password_confirmation = password_confirmation.strip()
     password = hash_password(password)
@@ -85,6 +97,7 @@ def register():
         }
         with open(os.path.join('game', 'data', str(user_name), f'{user_name}.json'), 'w') as jason_file:
             json.dump(user_data, jason_file)
+    print('Registration complete')
 
 
 def loggin():
@@ -202,8 +215,7 @@ def chg_pass(user):
                     print('password must be 6 char long, lower case, and at least 1 nr')
                     new_pasw = getpass.getpass('Type new password: ')
                     new_pasw = new_pasw.strip()
-                    while not (len(new_pasw) >= 6 and new_pasw.isalnum() and not (
-                            new_pasw.isalpha() or new_pasw.isnumeric())):
+                    while str_chk(new_pasw) is None:
                         print('Insecure password ')
                         new_pasw = getpass.getpass('Type new password: ')
                         new_pasw = new_pasw.strip()
@@ -215,8 +227,7 @@ def chg_pass(user):
                             print('Password not confirmed')
                             new_pasw = getpass.getpass('Type new password: ')
                             new_pasw = new_pasw.strip()
-                            while not (len(new_pasw) >= 6 and new_pasw.isalnum() and not (
-                                    new_pasw.isalpha() or new_pasw.isnumeric())):
+                            while not str_chk(new_pasw) is None:
                                 print('Insecure password ')
                                 new_pasw = getpass.getpass('Type new password: ')
                                 new_pasw = new_pasw.strip()
@@ -232,8 +243,7 @@ def chg_pass(user):
                         print('Password not confirmed')
                         new_pasw = getpass.getpass('Type new password: ')
                         new_pasw = new_pasw.strip()
-                        while not (len(new_pasw) >= 6 and new_pasw.isalnum() and not (
-                                new_pasw.isalpha() or new_pasw.isnumeric())):
+                        while str_chk(new_pasw):
                             print('Insecure password ')
                             new_pasw = getpass.getpass('Type new password: ')
                             new_pasw = new_pasw.strip()

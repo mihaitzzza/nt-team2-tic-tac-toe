@@ -3,6 +3,7 @@ from .board import board_matrix as initial_board, get_options, show, set_choice
 from .status import check_status
 from .player import get_current_player
 from .match import check_match_status
+import copy
 
 logger = logging.getLogger(__name__)
 
@@ -17,12 +18,8 @@ def start():
     is_correct_choice = True
     sign = 'x'
 
-    board_matrix = [
-        [None, None, None],
-        [None, None, None],
-        [None, None, None],
-    ]
-    # board_matrix=initial_board.copy()
+    # deep copy
+    board_matrix = copy.deepcopy(initial_board)
     print(board_matrix)
     winner = None
     player_name = None
@@ -78,7 +75,6 @@ def start():
     if winner:
         print(f'{winner} has won the game.')
         logger.info(f'{winner} has won the game.')
-
     else:
         print('Game ended as a draw.')
         logger.info('Game ended as a draw.')

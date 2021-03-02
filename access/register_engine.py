@@ -23,70 +23,54 @@ def register():
     with authentication credentials
     """
 
+    users_path = os.path.join('data', 'users')
     print('To register please input:')
     print('-------------------------')
-    first_name = input('First_name: ')
-    while character_check(first_name) is None:
-        print('Characters not permitted')
+    first_name = ''
+    while not character_check(first_name):
         first_name = input('First_name: ')
         first_name = first_name.strip()
-
-    last_name = input('Last_name: ')
-    while character_check(last_name) is None:
-        print('Characters not permitted ')
+        if character_check(first_name) is None:
+            print('Characters not permitted')
+    last_name = ''
+    while not character_check(last_name):
         last_name = input('Last_name: ')
         last_name = last_name.strip()
-
+        if character_check(last_name) is None:
+            print('Characters not permitted ')
     print('user_name must be at least 6 char lower case letters, and at least 1 number')
-    user_name = input('User_name: ')
-    user_name = user_name.strip()
-
+    user_name = ''
+    username_file = ''
     # check user_name format and user_name exist
-    while string_check(user_name) is None or user_name in os.listdir(os.path.join('data', 'users')):
-        if string_check(user_name) is None:
-            print('Wrong user_name! ')
-        else:
-            print('Username already used, try another! ')
+    while not string_check(user_name) or username_file in os.listdir(users_path):
         user_name = input('User_name: ')
         user_name = user_name.strip()
-
+        username_file = f'{user_name}.json'
+        if string_check(user_name) is None:
+            print('Wrong user_name! ')
+        elif username_file in os.listdir(users_path):
+            print('Username already used, try another! ')
     print('Clever choice for username!')
-
-    email_address = input('Email_address: ')
-    while email_string_check(email_address) is None:
-        print('Not valid email format ')
+    email_address = ''
+    while not email_string_check(email_address):
         email_address = input('Email_address: ')
         email_address = email_address.strip()
-
+        if email_string_check(email_address) is None:
+            print('Not valid email format ')
     print('password must be 6 char long, lower case, and at least 1 nr')
-    password = getpass.getpass('Password: ')
-    password = password.strip()
-
-    password_confirmation = getpass.getpass('Confirm_password: ')
-    password_confirmation = password_confirmation.strip()
-
+    password = ''
+    password_confirmation = ''
     # check password format
-    while string_check(password) is None or password != password_confirmation:
-        if string_check(password) is None:
-            print('Insecure password ')
-        else:
-            print('Password not confirmed')
-
-        password = getpass.getpass('Password:  ')
+    while not string_check(password) or password != password_confirmation:
+        password = getpass.getpass('Password: ')
         password = password.strip()
         password_confirmation = getpass.getpass('Confirm_password: ')
         password_confirmation = password_confirmation.strip()
-
+        if string_check(password) is None:
+            print('Insecure password ')
+        elif password != password_confirmation:
+            print('Password not confirmed')
     password = hash_password(password)
-    password_confirmation = hash_password(password_confirmation)
-
-    while password != password_confirmation:  # check password confirmation
-        print('Password not confirmed')
-        password = getpass.getpass('Password:')
-        password_confirmation = getpass.getpass('Confirm_password:')
-        password = hash_password(password.strip())
-        password_confirmation = hash_password(password_confirmation.strip())
-
     user_data = {
         'first_name': first_name.strip(),
         'last_name': last_name.strip(),
@@ -96,7 +80,8 @@ def register():
         'stats': {},
 
     }
-    with open(os.path.join('data', 'users', f'{user_name}.json'), 'w') as jason_file:
+    username_file_path = os.path.join(users_path, f'{user_name}.json')
+    with open(username_file_path, 'w') as jason_file:
         json.dump(user_data, jason_file)
     print('Registration complete')
 

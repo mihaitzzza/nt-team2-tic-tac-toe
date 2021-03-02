@@ -1,4 +1,4 @@
-def get_current_player(step, players=()):
+def get_current_player(step, players):
     """
     This function is used for getting data about the current player.
     :param step: Integer about the current iteration,
@@ -10,4 +10,3 @@ def get_current_player(step, players=()):
         return players[0], 'x'
     else:
         return players[1], 'o'
-

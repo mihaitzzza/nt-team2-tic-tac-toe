@@ -11,8 +11,6 @@ def string_check(word: str):
     result = re.match('^(?=.*[a-z])(?=.*[0-9])[a-z,0-9]{6,}$', word)
     if result is not None:
         return result.group(0)
-    else:
-        return result
 
 
 def character_check(word: str):
@@ -25,8 +23,6 @@ def character_check(word: str):
     result = re.match('^[a-z,A-Z]+$', word)
     if result is not None:
         return result.group(0)
-    else:
-        return result
 
 
 def email_string_check(word: str):
@@ -38,5 +34,3 @@ def email_string_check(word: str):
     result = re.match(r'^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', word)
     if result is not None:
         return result.group(0)
-    else:
-        return result

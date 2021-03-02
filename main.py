@@ -5,6 +5,7 @@ import os.path
 from access.register_engine import register
 from access import change_pass
 import sys
+import os
 
 logging.basicConfig(
     filename=os.path.join('games', f'{uuid.uuid4()}.txt'),
@@ -15,6 +16,7 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger('Tic-Tac-Toe App')
+
 
 if __name__ == '__main__':
 

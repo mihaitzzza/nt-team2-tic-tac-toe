@@ -4,6 +4,7 @@ from access.check_engine import character_check, string_check, email_string_chec
 import os
 import json
 import hashlib
+users_path = os.path.join('data', 'users')
 
 
 def hash_password(word: str):
@@ -22,8 +23,6 @@ def register():
     and filename username.json
     with authentication credentials
     """
-
-    users_path = os.path.join('data', 'users')
     print('To register please input:')
     print('-------------------------')
     first_name = ''
@@ -68,7 +67,7 @@ def register():
         password_confirmation = password_confirmation.strip()
         if string_check(password) is None:
             print('Insecure password ')
-        elif password != password_confirmation:
+        if password != password_confirmation:
             print('Password not confirmed')
     password = hash_password(password)
     user_data = {

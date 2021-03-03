@@ -2,10 +2,9 @@ import logging
 import game
 import uuid
 import os.path
-from access.register_engine import register
+from access.register_engine import register, users_path
 from access import change_pass
 import sys
-import os
 
 logging.basicConfig(
     filename=os.path.join('games', f'{uuid.uuid4()}.txt'),
@@ -17,11 +16,9 @@ logging.basicConfig(
 
 logger = logging.getLogger('Tic-Tac-Toe App')
 
-
 if __name__ == '__main__':
 
     # check if folders data and users exists if not it wil be created
-
     if 'data' not in os.listdir():
         os.mkdir('data')
     if 'users' not in os.listdir('data'):
@@ -44,23 +41,10 @@ if __name__ == '__main__':
             register()
         elif s == '3':
             user = input('Type username: ')
-            if f'{user}.json' in os.listdir(os.path.join('data', 'users')):
+            if f'{user}.json' in os.listdir(users_path):
                 change_pass(user)
             else:
                 print('username does not exist')
-                while True:
-                    print("""\n Select:
-                       0 - EXIT
-                       1 - REGISTER 
-                       """)
-                    m = input()
-                    if m == '1':
-                        register()
-                        try:
-                            game.start()
-                        except BaseException as e:
-                            logger.exception(e)
-                    else:
-                        sys.exit(0)
-        else:
+                print('Please register')
+        elif s == '0':
             sys.exit(0)

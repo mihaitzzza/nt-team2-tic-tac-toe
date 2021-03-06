@@ -2,8 +2,8 @@ import logging
 import game
 import uuid
 import os.path
-from access.register_engine import register, users_path
-from access import change_pass
+from access.register_engine import register
+from access.auth import change_password
 import sys
 
 logging.basicConfig(
@@ -40,11 +40,6 @@ if __name__ == '__main__':
         elif s == '2':
             register()
         elif s == '3':
-            user = input('Type username: ')
-            if f'{user}.json' in os.listdir(users_path):
-                change_pass(user)
-            else:
-                print('username does not exist')
-                print('Please register')
+            change_password()
         elif s == '0':
             sys.exit(0)

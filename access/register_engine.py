@@ -85,12 +85,10 @@ def register():
     print('Registration complete')
 
 
-def menu_register(player: str):
+def menu_register():
     """display register or exit menu
     : param: player type string"""
 
-    print('------------------------')
-    print(f'{player} not registered!')
     print("""\nPlease select option:
                         0 - EXIT
                         1 - REGISTER

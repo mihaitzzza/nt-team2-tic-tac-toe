@@ -55,28 +55,28 @@ def login():
         print('Player not registered')
 
 
+def login_player(player_id):
+    """perform login for player
+    : param: player_id type string can be player_1 or player_2
+    : return: player name type string"""
+    player = None
+    for counter in range(0, 2):
+        print(player_id)
+        player = login()
+        counter += 1
+        if player:
+            break
+    if not player:
+        menu_register()
+    return player
+
+
 def player_auth():
     """performs auth for player 1 and 2
     :returns; player_1 first_name
     and players_2 first_name"""
-    player_1 = None
-    player_2 = None
-    for counter in range(0, 2):
-        print('Player_1')
-        player_1 = login()
-        counter += 1
-        if player_1:
-            break
-    if not player_1:
-        menu_register()
-    for counter in range(0, 2):
-        print('Player_2')
-        player_2 = login()
-        counter += 1
-        if player_2:
-            break
-    if not player_2:
-        menu_register()
+    player_1 = login_player('Player_1')
+    player_2 = login_player('Player_2')
     return player_1, player_2
 
 

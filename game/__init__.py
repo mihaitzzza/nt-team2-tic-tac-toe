@@ -3,6 +3,7 @@ from .board import board_matrix as initial_board, get_options, show, set_choice
 from .status import check_status
 from .player import get_current_player
 from access import player_auth
+from copy import deepcopy
 
 
 logger = logging.getLogger(__name__)
@@ -17,7 +18,7 @@ def start():
     available_options = []
     is_correct_choice = True
     sign = 'x'
-    board_matrix = initial_board.copy()
+    board_matrix = deepcopy(initial_board)
     winner = None
     player_name = None
     players = player_auth()

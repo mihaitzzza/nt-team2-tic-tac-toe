@@ -1,14 +1,12 @@
-def get_current_player(step):
+def get_current_player(step, players):
     """
     This function is used for getting data about the current player.
-    :param step: Integer about the current iteration.
+    :param step: Integer about the current iteration,
+    :param players tuple containing player_1 name and
+    player_name
     :return: (player_name, player_sign)
     """
     if step % 2 == 0:
-        name = 'Player 1'
-        sign = 'x'
+        return players[0], 'x'
     else:
-        name = 'Player 2'
-        sign = 'o'
-
-    return name, sign
+        return players[1], 'o'

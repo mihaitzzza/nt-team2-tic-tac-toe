@@ -2,6 +2,9 @@ import logging
 from .board import board_matrix as initial_board, get_options, show, set_choice
 from .status import check_status
 from .player import get_current_player
+from access import player_auth
+from copy import deepcopy
+
 
 logger = logging.getLogger(__name__)
 
@@ -15,16 +18,17 @@ def start():
     available_options = []
     is_correct_choice = True
     sign = 'x'
-    board_matrix = initial_board.copy()
+    board_matrix = deepcopy(initial_board)
     winner = None
     player_name = None
+    players = player_auth()
 
     print('Welcome and good luck!')
     logger.info('Welcome and good luck!')
 
     while not is_over:
         if is_correct_choice:
-            player_name, sign = get_current_player(step)
+            player_name, sign = get_current_player(step, players)
             print('%s is your turn.' % player_name)
             logger.info('%s is your turn.' % player_name)
 
